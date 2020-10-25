@@ -11,14 +11,6 @@ export default new Vuex.Store({
     articles: [],
     searchKey: '',
   },
-  mutations: {
-    ROUTERTOARTICLES(state, payload){
-      state.articles = payload
-    },
-    KEYUPSEARCHKEY(state, payload){
-      state.searchKey = payload
-    }
-  },
   actions: {
     routerToArticles(context) {
       const api = 'https://us-central1-expressapi-8c039.cloudfunctions.net/app/article'
@@ -31,13 +23,26 @@ export default new Vuex.Store({
       context.commit('KEYUPSEARCHKEY', payload)
     }
   },
-  getters: {
-    filterBySearchKey: state => {
-      console.log(state)
-      return state.articles.filter( art => art.title === state.searchKey)
-      
+  mutations: {
+    ROUTERTOARTICLES(state, payload){
+      state.articles = payload
+    },
+    KEYUPSEARCHKEY(state, payload){
+      state.searchKey = payload
     }
   },
-  modules: {
+  getters: {
+    filterBySearchKey: state => {
+      // if (state.articles.length){
+        if (state.searchKey === ''){
+          return state.articles
+        }else {
+          console.log(state.searchKey)
+          return state.articles.filter((art) => {
+            return art.title.toLowerCase().includes(state.searchKey.toLowerCase());
+          })
+        } 
+      // }
+    }
   },
 })

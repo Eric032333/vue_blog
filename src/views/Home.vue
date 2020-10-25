@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <section class="home-article">
-      <article v-for='art of articles' :key='art.id'>
+      <article v-for='(art, index) of filterBySearchKey' :key='art.index'>
         <b-card bg-variant="dark" text-variant="white" class="article ml-5">
           <h3 @click="routerToArticle(art.id)">{{art.title}}</h3>
         <hr class="hr">

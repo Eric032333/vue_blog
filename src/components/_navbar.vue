@@ -49,6 +49,13 @@
         searchKey: '',
       }
     },
+    watch: {
+      searchKey(){
+        if(this.searchKey === '') {
+          this.submitSeachhKey()
+        }
+      }
+    },
     methods: {
       ...mapActions(['keyupSearchKey']),
       submitSeachhKey() {
